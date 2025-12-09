@@ -1,0 +1,15 @@
+# Backend dependencies (Flask + SQLAlchemy + PostgreSQL + utils)
+
+Flask==3.0.3
+Flask-Cors==4.0.0
+SQLAlchemy==2.0.36
+psycopg[binary]==3.2.1
+
+# Utilidades
+python-dotenv==1.0.1
+requests==2.32.3
+
+# Seguridad de contraseñas (ya la usa werkzeug dentro de Flask)
+Werkzeug==3.0.4
+
+psycopg2-binary

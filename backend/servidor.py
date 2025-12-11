@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
+
 # CARGA .env ANTES DE IMPORTAR database/models
 load_dotenv()
 
@@ -216,5 +217,5 @@ def remove_session(exc=None):
     SessionLocal.remove()
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=bool(int(os.getenv("FLASK_DEBUG", "1"))))
+    port = int(os.environ.get("PORT", 5000))  # Render te da PORT
+    app.run(host="0.0.0.0", port=port)

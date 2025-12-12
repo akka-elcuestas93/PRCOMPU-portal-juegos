@@ -1,10 +1,14 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import VueDevTools from 'vite-plugin-vue-devtools'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
-export default defineConfig(({ command }) => ({
-  plugins: [
-    vue(),
-    ...(command === 'serve' ? [VueDevTools()] : [])
-  ],
-}))
+export default defineConfig(async ({ command }) => {
+  const plugins = [vue()];
+
+  // ✅ Solo en local (vite serve)
+  if (command === "serve") {
+    const { default: VueDevTools } = await import("vite-plugin-vue-devtools");
+    plugins.push(VueDevTools());
+  }
+
+  return { plugins };
+});

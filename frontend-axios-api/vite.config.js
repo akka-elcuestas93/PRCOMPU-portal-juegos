@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig(async ({ command }) => {
   const plugins = [vue()];
@@ -10,5 +11,12 @@ export default defineConfig(async ({ command }) => {
     plugins.push(VueDevTools());
   }
 
-  return { plugins };
+  return {
+    plugins,
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
+  };
 });

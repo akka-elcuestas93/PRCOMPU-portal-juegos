@@ -51,9 +51,15 @@ let sessionLoaded = false;
 router.beforeEach(async (to, from, next) => {
   // cargar sesión solo una vez
   if (!sessionLoaded) {
-    await loadSession();
-    sessionLoaded = true;
+    try {
+      await loadSession();
+    } catch (e) {
+      console.warn("loadSession falló (ignorable):", e);
+    } finally {
+      sessionLoaded = true;
+    }
   }
+
 
   const user = session.user;
 

@@ -16,15 +16,16 @@ from models import Game, User
 # ---------------------------------------------------------------------
 
 app = Flask(__name__)
-
 # CORS con credenciales (cookies)
-origins = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
-CORS(app, resources={r"/api/*": {"origins": origins}}, supports_credentials=True)
+origins = [o.strip() for o in os.getenv("CORS_ORIGINS","").split(",") if o.strip()]
+CORS(app,
+     origins=origins,
+     supports_credentials=True)
 
 # Config sesión/cookies
 app.secret_key = os.getenv("SECRET_KEY", "change-me")
 app.config["SESSION_COOKIE_SAMESITE"] = os.getenv("SESSION_COOKIE_SAMESITE", "Lax")
-app.config["SESSION_COOKIE_SECURE"] = os.getenv("SESSION_COOKIE_SECURE", "False") == "True"
+app.config["SESSION_COOKIE_SECURE"] = os.getenv("SESSION_COOKIE_SECURE", "False").lower() == "true"
 
 # Crear tablas
 with engine.begin() as conn:
